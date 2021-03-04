@@ -31,14 +31,26 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   const [board, setBoard] = useState(createBoard());
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
+
+  function getRandom() {
+    if (Math.random() > 0.5) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   function createBoard() {
-    let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
+    const array1 = Array.from({length: nrows})
+    const initialBoard = array1.map(x => Array.from({length: ncols }, (v, x) => getRandom(x)))
+    // rewrite this tomorrow to be y loop then x loop pushing in rows
+
     return initialBoard;
   }
 
   function hasWon() {
-    // TODO: check the board in state to determine whether the player has won.
+    return board.every(row => row.every(cell => !cell));
   }
 
   function flipCellsAround(coord) {
@@ -71,3 +83,5 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 }
 
 export default Board;
+
+
